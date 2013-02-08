@@ -119,7 +119,7 @@ if ($dbc && ($do_db || $do_db_cfg)) {
 
   if (! $existing_db) {
 		dPmsg('Creating new Database');
-		$db->Execute('CREATE DATABASE `'.$dbname.'`');
+		$db->Execute('CREATE DATABASE `'.$dbname.'` CHARACTER SET utf8 COLLATE utf8_general_ci;');
          $dbError = $db->ErrorNo();
  
          if ($dbError <> 0 && $dbError <> 1007) {
