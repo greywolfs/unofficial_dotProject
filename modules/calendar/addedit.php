@@ -15,6 +15,7 @@ if (!(($canEdit && $event_id) || ($canAuthor && !($event_id)))) {
 
 // get the passed timestamp (today if none)
 $date = dPgetCleanParam($_GET, 'date', null);
+$time = dPgetCleanParam($_GET, 'time', null);
 
 // load the record data
 $obj = new CEvent();
@@ -91,6 +92,7 @@ $allowedProjects = $prj->getAllowedSQL($AppUI->user_id);
 if (count($allowedProjects)) { 
 	$prj->setAllowedSQL($AppUI->user_id, $q);
 }
+$q->addWhere('(project_status <> 7)');
 $q->addOrder('project_name');
 
 $all_projects = '(' . $AppUI->_('All', UI_OUTPUT_RAW) . ')';
@@ -101,7 +103,10 @@ if ($event_id || $is_clash) {
 	$end_date = ($obj->event_end_date) ? new CDate($obj->event_end_date) : $start_date;
 } else {
 	$start_date = new CDate($date);
-	$start_date->setTime(8,0,0);
+	if ($time)
+		$start_date->setTime(substr($time,0,2),substr($time,2,2),0);
+	else
+		$start_date->setTime(8,0,0);
 	$end_date = new CDate($date);
 	$end_date->setTime(17,0,0);
 }
@@ -330,10 +335,7 @@ echo (($start_date) ? $start_date->format($df) : ''); ?>" class="text" disabled=
 			<img src="./images/calendar.gif" width="24" height="12" alt="<?php 
 echo $AppUI->_('Calendar'); ?>" border="0" />
 		</a>
-	</td>
-	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Time'); ?>:</td>
-	<td><?php 
-echo arraySelect($times, 'start_time', 'size="1" class="text"', $start_date->format("%H%M%S")); 
+	<?php echo '&nbsp;&nbsp;&nbsp;' . $AppUI->_('Time') . ':' . arraySelect($times, 'start_time', 'size="1" class="text"', $start_date->format("%H%M%S"));
 ?></td>
 </tr>
 
@@ -348,10 +350,7 @@ echo (($end_date) ? $end_date->format($df) : ''); ?>" class="text" disabled="dis
 			<img src="./images/calendar.gif" width="24" height="12" alt="<?php 
 echo $AppUI->_('Calendar'); ?>" border="0" />
 		</a>
-	</td>
-	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Time'); ?>:</td>
-	<td><?php 
-echo arraySelect($times, 'end_time', 'size="1" class="text"', $end_date->format("%H%M%S")); ?></td>
+	<?php echo '&nbsp;&nbsp;&nbsp;' . $AppUI->_('Time') . ':' . arraySelect($times, 'end_time', 'size="1" class="text"', $end_date->format("%H%M%S")); ?></td>
 </tr>
 <tr>
 	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Recurs'); ?>:</td>
