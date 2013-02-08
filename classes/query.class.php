@@ -604,6 +604,7 @@ class DBQuery {
 		}
 		
 		$ADODB_FETCH_MODE = $style;
+		$db->Execute('SET NAMES UTF8;');
 		$this->clearQuery();
 		if ($q = $this->prepare()) {
         	dprint(__FILE__, __LINE__, 7, "executing query($q)");
