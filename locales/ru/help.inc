@@ -1,0 +1,18 @@
+##
+## DO NOT MODIFY THIS FILE BY HAND!
+##
+"About Modules"=>"О модулях",
+"Access Denied"=>"Доступ Запрещен",
+"Adding a Company"=>"Добавление Компании",
+"Adding a Project"=>"Добавление Проекта",
+"Adding a Task"=>"Добавление Задачи",
+"Breadcrumbs"=>"Точки отладки",
+"Context Help"=>"Контекстный хелп",
+"General Concepts"=>"Общая Концепция",
+"Getting Started"=>"Начало",
+"Left Navigation"=>"",
+"Saving Your Place"=>"Сохрание Вашего Места",
+"Tabbed Property Boxes"=>"",
+"Top Menu"=>"Главное Меню",
+"helpIntro"=>"Некоторые ссылки на топики в файле помощи, недоступные из контекстного меню",
+"index"=>"индекс",
