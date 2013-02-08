@@ -1,6 +1,7 @@
 ##
 ## DO NOT MODIFY THIS FILE BY HAND!
 ##
+"BadDyn_NoChild"=>"A Task cannot be set as Dynamic without child Task(s)",
 "End",
 "-",
 "Access",
@@ -151,6 +152,7 @@
 "Project",
 "Project Contacts",
 "Project Hours",
+"Project name",
 "Project Tasks",
 "Projects on Hold",
 "Ref",
@@ -208,6 +210,7 @@
 "Todo for",
 "Total Hours",
 "URL",
+"Unassign User from Task",
 "Unassign User from Task and handing-over to selected Users",
 "Unassign Users from Task",
 "Unknown",
@@ -256,7 +259,7 @@
 "notifyChange"=>"Notify Assignees of Task by Email",
 "overAlloc"=>"The assignment percentage you chose runs out of user\'s free capacity. The relevant user has not been assigned.",
 "save",
-"save &amp; new task",
+"save & new task",
 "see gantt chart",
 "set priority to high",
 "set priority to low",
