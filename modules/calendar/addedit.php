@@ -149,15 +149,17 @@ $recurs =  array ('Never',
 	'Semi-Annually',
                   'Annually');
 
-$remind = array ('900' => '15 mins',
-                 '1800' => '30 mins',
-                 '3600' => '1 hour',
-                 '7200' => '2 hours',
-                 '14400' => '4 hours',
-                 '28800' => '8 hours',
-                 '56600' => '16 hours',
-                 '86400' => '1 day',
-                 '172800' => '2 days');
+$remind = array (
+	"900" => '15 '.$AppUI->_('mins'),
+	"1800" => '30 '.$AppUI->_('mins'),
+	"3600" => '1 '.$AppUI->_('hours'),
+	"7200" => '2 '.$AppUI->_('hours'),
+	"14400" => '4 '.$AppUI->_('hours'),
+	"28800" => '8 '.$AppUI->_('hours'),
+//	"56600" => '16 '.$AppUI->_('hours'),
+	"86400" => '1 '.$AppUI->_('day'),
+	"172800" => '2 '.$AppUI->_('days')
+);
 
 // build array of times in preference specified minute increments (default 30)
 $times = array();
@@ -364,12 +366,10 @@ echo ((isset($obj->event_times_recuring)) ? $obj->event_times_recuring : '1');
 ?>" maxlength="2" size="3" /> <?php echo $AppUI->_('times'); ?>
 	</td>
 </tr>
-<?php /* FUNCTIONALITY NOT YET ENABLED ?>
 <tr>
 	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Remind Me'); ?>:</td>
-	<td><?php echo arraySelect($remind, 'event_remind', 'size="1" class="text"', $obj['event_remind']); ?> <?php echo $AppUI->_('in advance'); ?></td>
+	<td><?php echo arraySelect($remind, 'event_remind', 'size="1" class="text"', $obj->event_remind); ?> <?php echo $AppUI->_('in advance'); ?></td>
 </tr>
-<?php */ ?>
 
 <tr>
 	<td align="right"><?php echo $AppUI->_('Resources'); ?>:</td>
