@@ -172,17 +172,17 @@ if (is_array($tasks)) {
 			$graph2->Add($barTmp);
 		}
 		
-		if ($locale_char_set=='utf-8' && function_exists('utf_decode')) {
-			$name = ((mb_strlen(utf8_decode($t['task_name'])) > 25) 
-			         ? (mb_substr(utf8_decode($t['task_name']), 0, 22) . '...') 
-			         : utf8_decode($t['task_name']));
-			$nameUser = $t['user_name'];
-		} else {
+//		if ($locale_char_set=='utf-8' && function_exists('utf_decode')) {
+//			$name = ((mb_strlen(utf8_decode($t['task_name'])) > 25)
+//			         ? (mb_substr(utf8_decode($t['task_name']), 0, 22) . '...')
+//			         : utf8_decode($t['task_name']));
+//			$nameUser = $t['user_name'];
+//		} else {
 			//while using charset different than UTF-8 we need not to use utf8_deocde
-			$name = ((mb_strlen($t['task_name']) > 25) ? (mb_substr($t['task_name'], 0, 22) . '...') 
+			$name = ((mb_strlen($t['task_name'],$locale_char_set) > 25) ? (mb_substr($t['task_name'], 0, 22,$locale_char_set) . '...')
 			         : $t['task_name']);
 			$nameUser = $t['user_name'];
-		}
+//		}
 		
 		//using new jpGraph determines using Date object instead of string
 		$start = (($t['task_start_date'] > '0000-00-00 00:00:00') ? $t['task_start_date'] 

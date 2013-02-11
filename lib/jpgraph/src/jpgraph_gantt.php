@@ -145,7 +145,7 @@ class GanttActivityInfo {
     public $vgrid = null;
     private $iColor='black';
     private $iBackgroundColor='lightgray';
-    private $iFFamily=FF_FONT1,$iFStyle=FS_NORMAL,$iFSize=10,$iFontColor='black';
+    private $iFFamily=FF_CUSTOM,$iFStyle=FS_NORMAL,$iFSize=10,$iFontColor='black';
     private $iTitles=array();
     private $iWidth=array(),$iHeight=-1;
     private $iTopHeaderMargin = 4;
@@ -334,7 +334,7 @@ class GanttGraph extends Graph {
     private $iLabelHMarginFactor=0.2; // 10% margin on each side of the labels
     private $iLabelVMarginFactor=0.4; // 40% margin on top and bottom of label
     private $iLayout=GANTT_FROMTOP; // Could also be GANTT_EVEN
-    private $iSimpleFont = FF_FONT1,$iSimpleFontSize=11;
+    private $iSimpleFont = FF_CUSTOM,$iSimpleFontSize=11;
     private $iSimpleStyle=GANTT_RDIAG,$iSimpleColor='yellow',$iSimpleBkgColor='red';
     private $iSimpleProgressBkgColor='gray',$iSimpleProgressColor='darkgreen';
     private $iSimpleProgressStyle=GANTT_SOLID;
@@ -1545,7 +1545,7 @@ class IconImage {
 class TextProperty {
     public $iShow=true;
     public $csimtarget='',$csimwintarget='',$csimalt='';
-    private $iFFamily=FF_FONT1,$iFStyle=FS_NORMAL,$iFSize=10;
+    private $iFFamily=FF_CUSTOM,$iFStyle=FS_NORMAL,$iFSize=10;
     private $iFontArray=array();
     private $iColor="black";
     private $iText="";
@@ -1832,7 +1832,7 @@ class TextProperty {
 class HeaderProperty {
     public $grid;
     public $iShowLabels=true,$iShowGrid=true;
-    public $iTitleVertMargin=3,$iFFamily=FF_FONT0,$iFStyle=FS_NORMAL,$iFSize=8;
+    public $iTitleVertMargin=3,$iFFamily=FF_CUSTOM,$iFStyle=FS_NORMAL,$iFSize=8;
     public $iStyle=0;
     public $iFrameColor="black",$iFrameWeight=1;
     public $iBackgroundColor="white";
@@ -1970,11 +1970,11 @@ class GanttScale {
         $this->minute = new HeaderProperty();
         $this->minute->SetIntervall(15);
         $this->minute->SetLabelFormatString('i');
-        $this->minute->SetFont(FF_FONT0);
+        $this->minute->SetFont(FF_CUSTOM);
         $this->minute->grid->SetColor("gray");
 
         $this->hour = new HeaderProperty();
-        $this->hour->SetFont(FF_FONT0);
+        $this->hour->SetFont(FF_CUSTOM);
         $this->hour->SetIntervall(6);
         $this->hour->SetStyle(HOURSTYLE_HM24);
         $this->hour->SetLabelFormatString('H:i');
@@ -1986,13 +1986,13 @@ class GanttScale {
 
         $this->week = new HeaderProperty();
         $this->week->SetLabelFormatString("w%d");
-        $this->week->SetFont(FF_FONT1);
+        $this->week->SetFont(FF_CUSTOM);
 
         $this->month = new HeaderProperty();
-        $this->month->SetFont(FF_FONT1,FS_BOLD);
+        $this->month->SetFont(FF_CUSTOM,FS_BOLD);
 
         $this->year = new HeaderProperty();
-        $this->year->SetFont(FF_FONT1,FS_BOLD);
+        $this->year->SetFont(FF_CUSTOM,FS_BOLD);
 
         $this->divider=new LineProperty();
         $this->dividerh=new LineProperty();
@@ -2565,6 +2565,7 @@ class GanttScale {
 
     // Stroke the day scale (including gridlines)
     function StrokeDays($aYCoord,$getHeight=false) {
+		global $locale_char_set;
         $img=$this->iImg;
         $daywidth=$this->GetDayWidth();
         $xt=$img->left_margin+$this->iLabelWidth;
@@ -2656,7 +2657,7 @@ class GanttScale {
                     default:
                         // "M"
                         $txt = strftime('%A',$datestamp);
-                        $txt = strtoupper($txt[0]);
+                        $txt = strtoupper(mb_substr($txt,0,1,$locale_char_set));
                         break;
                 }
 
@@ -3523,7 +3524,7 @@ class MileStone extends GanttPlotObject {
         GanttPlotObject::__construct();
         $this->caption->Set($aCaption);
         $this->caption->Align("left","center");
-        $this->caption->SetFont(FF_FONT1,FS_BOLD);
+        $this->caption->SetFont(FF_CUSTOM,FS_BOLD);
         $this->title->Set($aLabel);
         $this->title->SetColor("darkred");
         $this->mark = new PlotMark();

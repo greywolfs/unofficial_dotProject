@@ -54,7 +54,7 @@ for ($i=0; $i < 12; $i++) {
 	echo ("\n\t" . '<td width="8%">' 
 	      . '<a href="index.php?m=public&amp;a=calendar&amp;dialog=1&amp;callback=' . $callback 
 	      . '&amp;date=' . $this_month->format(FMT_TIMESTAMP_DATE) . '&amp;uts=' . $prev_date 
-	      . '" class="">' . mb_substr($AppUI->_($this_month->format("%B")), 0, 1) 
+	      . '" class="">' . mb_substr($AppUI->_($this_month->format("%B")), 0, 2,$locale_char_set)
 	      . '</a></td>');
 }
 ?>

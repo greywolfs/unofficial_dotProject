@@ -371,22 +371,22 @@ for ($i = 0; $i < count(@$gantt_arr); $i ++) {
 	if ($locale_char_set=='utf-8' && function_exists('utf8_decode')) {
 		$name = utf8_decode($name);
 	}
-	$name = ((mb_strlen($name) > 34) ? (mb_substr($name, 0, 33) . '.') : $name);
+	$name = ((mb_strlen($name,$locale_char_set) > 34) ? (mb_substr($name, 0, 33,$locale_char_set) . '.') : $name);
 	$name = (str_repeat(' ', $level) . $name);
 	
 	if ($caller == 'todo') {
 		$pname = $a['project_name'];
-		if ($locale_char_set=='utf-8') {
-			if (function_exists('mb_substr')) {
-				$pname = ((mb_strlen($pname) > 14 
-				          ? (mb_substr($pname, 0, 5) . '...' . mb_substr($pname, -5, 5)) : $pname));
-			}  else if (function_exists('utf8_decode')) {
-				$pname = utf8_decode($pname);
-			}
-		} else {
-			$pname = ((mb_strlen($pname) > 14) 
-			          ? (mb_substr($pname, 0, 5) . '...' . mb_substr($pname, -5, 5)) : $pname);
-		}
+//		if ($locale_char_set=='utf-8') {
+//			if (function_exists('mb_substr')) {
+//				$pname = ((mb_strlen($pname) > 14
+//				          ? (mb_substr($pname, 0, 5) . '...' . mb_substr($pname, -5, 5)) : $pname));
+//			}  else if (function_exists('utf8_decode')) {
+//				$pname = utf8_decode($pname);
+//			}
+//		} else {
+			$pname = ((mb_strlen($pname,$locale_char_set) > 14)
+			          ? (mb_substr($pname, 0, 5,$locale_char_set) . '...' . mb_substr($pname, -5, 5,$locale_char_set)) : $pname);
+//		}
 	}
 	//using new jpGraph determines using Date object instead of string
 	$start_date = new CDate($a['task_start_date']);
@@ -433,7 +433,7 @@ for ($i = 0; $i < count(@$gantt_arr); $i ++) {
 			}
 		}
 		$q->clear();
-		$caption = mb_substr($caption, 0, (mb_strlen($caption) - 1));
+		$caption = mb_substr($caption, 0, (mb_strlen($caption,$locale_char_set) - 1),$locale_char_set);
 	}
 	
 	if ($flags == 'm') {

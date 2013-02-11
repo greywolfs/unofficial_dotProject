@@ -3,6 +3,7 @@ if (!defined('DP_BASE_DIR')) {
 	die('You should not access this file directly.');
 }
 
+setlocale(LC_TIME, 'en');
 global $AppUI, $m, $a, $company_id, $dept_ids, $department, $locale_char_set;
 global $proFilter, $projectStatus, $showInactive, $showLabels, $showAllGantt;
 global $sortTasksByName, $user_id, $dPconfig, $m_orig, $a_orig;
@@ -211,15 +212,15 @@ if (!is_array($projects) || sizeof($projects) == 0) {
 
 if (is_array($projects)) {
 	foreach ($projects as $p) {
-		if ($locale_char_set=='utf-8' && function_exists('utf8_decode')) {
-			$name = ((mb_strlen(utf8_decode($p['project_name'])) > 25) 
-			         ? (mb_substr(utf8_decode($p['project_name']), 0, 22) . '...') 
-			         : utf8_decode($p['project_name']));
-		} else {
+//		if ($locale_char_set=='utf-8' && function_exists('utf8_decode')) {
+//			$name = ((mb_strlen(utf8_decode($p['project_name'])) > 25)
+//			         ? (mb_substr(utf8_decode($p['project_name']), 0, 22) . '...')
+//			         : utf8_decode($p['project_name']));
+//		} else {
 			//while using charset different than UTF-8 we need not to use utf8_deocde
-			$name = ((mb_strlen($p['project_name']) > 25) ? (mb_substr($p['project_name'], 0, 22).'...') 
+			$name = ((mb_strlen($p['project_name'],$locale_char_set) > 25) ? (mb_substr($p['project_name'], 0, 22,$locale_char_set).'...')
 			         : $p['project_name']) ;
-		}
+//		}
 		
 		//using new jpGraph determines using Date object instead of string
 		$start = (($p['project_start_date'] > '0000-00-00 00:00:00') ? $p['project_start_date'] 

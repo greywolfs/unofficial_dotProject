@@ -62,8 +62,8 @@ define('CSIMCACHE_HTTP_DIR','csimcache/');
 // Actual name of the TTF file used together with FF_CHINESE aka FF_BIG5
 // This is the TTF file being used when the font family is specified as
 // either FF_CHINESE or FF_BIG5
-define('TTF_DIR', DP_BASE_DIR . '/lib/fonts/vera/');
-define('FF_CUSTOM', 18);
+define('TTF_DIR', DP_BASE_DIR . '/lib/fonts/');
+define('FF_CUSTOM', 15);
 /*define('BASE_FONT', 'FreeSans');
 define('CUSTOM_TTF_FONT', BASE_FONT . '.ttf');
 define('CUSTOM_TTF_FONT_BOLD', BASE_FONT.'Bold.ttf');
