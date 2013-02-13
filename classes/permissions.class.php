@@ -337,7 +337,7 @@ class dPacl extends gacl_api {
 		$q	= new DBQuery;
 		$q->addTable('users');
 		$q->addQuery('user_id,' 
-		             . ' concat_ws(", ", contact_last_name, contact_first_name) as contact_name');
+		             . ' concat_ws(" ", contact_last_name, contact_first_name) as contact_name');
 		$q->addJoin('contacts', 'con', 'contact_id = user_contact');
 		$q->addOrder('contact_last_name');
 		$res = $q->exec();
