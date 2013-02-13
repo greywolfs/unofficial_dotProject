@@ -68,6 +68,7 @@
 "Overdue",
 "P",
 "Parent Task",
+"Please enter a valid event title",
 "previous month",
 "Progress",
 "Project",

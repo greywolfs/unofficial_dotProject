@@ -33,6 +33,13 @@ if (!$del && $start_date->compare ($start_date, $end_date) >= 0) {
 $do_redirect = true;
 require_once $AppUI->getSystemClass('CustomFields');
 
+foreach (findTabModules('calendar', 'addedit') as $mod) {
+	$fname = (DP_BASE_DIR . '/modules/' . $mod . '/calendar_dosql.addedit.php');
+	dprint(__FILE__, __LINE__, 3, ('checking for ' . $fname));
+	if (file_exists($fname)) {
+		require_once $fname;
+	}
+}
 if ($del) {
 	$AppUI->setMsg('Event');
 	if (!$obj->canDelete($msg)) {

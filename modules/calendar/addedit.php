@@ -175,110 +175,9 @@ for ($minutes=0; $minutes < $check; $minutes++) {
 ?>
 
 <script type="text/javascript" language="javascript">
-function submitIt() {
-	var form = document.editFrm;
-	if (form.event_title.value.length < 1) {
-		alert('<?php echo $AppUI->_('Please enter a valid event title',  UI_OUTPUT_JS); ?>');
-		form.event_title.focus();
-		return;
-	}
-	if (form.event_start_date.value.length < 1) {
-		alert('<?php echo $AppUI->_("Please enter a start date", UI_OUTPUT_JS); ?>');
-		form.event_start_date.focus();
-		return;
-	}
-	if (form.event_end_date.value.length < 1) {
-		alert('<?php echo $AppUI->_("Please enter an end date", UI_OUTPUT_JS); ?>');
-		form.event_end_date.focus();
-		return;
-	}
-	if ((!(form.event_times_recuring.value>0)) 
-		&& (form.event_recurs[0].selected!=true)) {
-		alert("<?php echo $AppUI->_('Please enter number of recurrences', UI_OUTPUT_JS); ?>");
-		form.event_times_recuring.value=1;
-		form.event_times_recuring.focus();
-		return;
-	} 
-	// Ensure that the assigned values are selected before submitting.
-	var assigned = form.assigned;
-	var len = assigned.length;
-	var users = form.event_assigned;
-	users.value = "";
-	for (var i = 0; i < len; i++) {
-		if (i)
-			users.value += ",";
-		users.value += assigned.options[i].value;
-	}
-	form.submit();
-}
-
-var calendarField = '';
-
-function popCalendar(field) {
-	calendarField = field;
-	idate = eval('document.editFrm.event_' + field + '.value');
-	window.open('?m=public&a=calendar&dialog=1&callback=setCalendar&date=' + idate, 'calwin', 'top=250,left=250,width=250, height=240,scrollbars=no,status=no');
-}
-
-/**
- *	@param string Input date in the format YYYYMMDD
- *	@param string Formatted date
- */
-function setCalendar(idate, fdate) {
-	fld_date = eval('document.editFrm.event_' + calendarField);
-	fld_fdate = eval('document.editFrm.' + calendarField);
-	fld_date.value = idate;
-	fld_fdate.value = fdate;
-
-	// set end date automatically with start date if start date is after end date
-	if (calendarField == 'start_date') {
-		if (document.editFrm.event_end_date.value < idate) {
-			document.editFrm.event_end_date.value = idate;
-			document.editFrm.end_date.value = fdate;
-		}
-	}
-}
-
-function addUser() {
-	var form = document.editFrm;
-	var fl = form.resources.length -1;
-	var au = form.assigned.length -1;
-	//gets value of percentage assignment of selected resource
-
-	var users = "x";
-
-	//build array of assiged users
-	for (au; au > -1; au--) {
-		users = users + "," + form.assigned.options[au].value + ","
-	}
-
-	//Pull selected resources and add them to list
-	for (fl; fl > -1; fl--) {
-		if (form.resources.options[fl].selected && users.indexOf("," + form.resources.options[fl].value + ",") == -1) {
-			t = form.assigned.length
-			opt = new Option(form.resources.options[fl].text, form.resources.options[fl].value);
-			form.assigned.options[t] = opt
-		}
-	}
-
-}
-
-function removeUser() {
-	var form = document.editFrm;
-	fl = form.assigned.length -1;
-	for (fl; fl > -1; fl--) {
-		if (form.assigned.options[fl].selected) {
-			//remove from hperc_assign
-			var selValue = form.assigned.options[fl].value;			
-			var re = ".*("+selValue+"=[0-9]*;).*";
-			form.assigned.options[fl] = null;
-		}
-	}
-}
-
-
+	var valid_event_title='<?php echo $AppUI->_('Please enter a valid event title',  UI_OUTPUT_JS); ?>';
 </script>
-
+<script type="text/javascript" language="javascript" src="modules/calendar/addedit.js"></script>
 <form name="editFrm" action="?m=calendar" method="post">
 	<input type="hidden" name="dosql" value="do_event_aed" />
 	<input type="hidden" name="event_id" value="<?php echo $event_id;?>" />
@@ -370,58 +269,33 @@ echo ((isset($obj->event_times_recuring)) ? $obj->event_times_recuring : '1');
 	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Remind Me'); ?>:</td>
 	<td><?php echo arraySelect($remind, 'event_remind', 'size="1" class="text"', $obj->event_remind); ?> <?php echo $AppUI->_('in advance'); ?></td>
 </tr>
-
-<tr>
-	<td align="right"><?php echo $AppUI->_('Resources'); ?>:</td>
-	<td></td>
-	<td align="left"><?php echo $AppUI->_('Invited to Event'); ?>:</td>
-	<td></td>
-</tr>
-<tr>
-	<td colspan="2" align="right">
-	<?php 
-echo arraySelect($users, 'resources', 
-                 'style="width:220px" size="10" class="text" multiple="multiple" ', null); ?>
-	</td>
-	<td colspan="2" align="left">
-	<?php 
-echo arraySelect($assigned, 'assigned', 
-                 'style="width:220px" size="10" class="text" multiple="multiple" ', null); ?>
-	</td>
-</tr>
-<tr>
-	<td></td>
-	<td colspan=2 align="center">
-		<table>
-			<tr>
-				<td align="left"><input type="button" class="button" value="&gt;"
-				onclick="javascript:addUser()" /></td>
-				<td align="right"><input type="button" class="button" value="&lt;"
-				onclick="javascript:removeUser()" /></td>
-			</tr>
-		</table>
-	</td>
-	<td align="left"><label for="mail_invited"><?php 
-echo $AppUI->_('Mail Attendees?'); ?></label> 
-	<input type="checkbox" name="mail_invited" id="mail_invited" checked="checked" /></td>
-</tr>
-<tr>
-	<td align="right" nowrap="nowrap"><label for="event_cwd"><?php 
-echo $AppUI->_('Show only on Working Days'); ?>:</label></td>
-	<td>
-		<input type="checkbox" value="1" name="event_cwd" id="event_cwd" <?php 
-echo (@$obj->event_cwd ? 'checked="checked"' : ''); ?> />
-	</td>
-</tr>
-<tr>
-	<td colspan="2" align="right">
+	<tr>
+		<td align="right" nowrap="nowrap"><label for="event_cwd"><?php
+			echo $AppUI->_('Show only on Working Days'); ?>:</label></td>
+		<td>
+			<input type="checkbox" value="1" name="event_cwd" id="event_cwd" <?php
+				echo (@$obj->event_cwd ? 'checked="checked"' : ''); ?> />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">
 			<?php
 // $m does not equal 'calendar' here???
-require_once $AppUI->getSystemClass("CustomFields");
-$custom_fields = New CustomFields('calendar', 'addedit', $obj->event_id, "edit");
-$custom_fields->printHTML();
+			require_once $AppUI->getSystemClass("CustomFields");
+			$custom_fields = New CustomFields('calendar', 'addedit', $obj->event_id, "edit");
+			$custom_fields->printHTML();
+			?>
+		</td>
+	</tr>
+</table>
+</form>
+<?php
+	$tabBox = new CTabBox();
+	$tabBox->add(DP_BASE_DIR.'/modules/calendar/ae_human_resource', 'Human Resources');
+	$tabBox->loadExtras('calendar','addedit');
+	$tabBox->show('', true);
 ?>
-	</td>
+<table>
 <tr>
 	<td colspan="2">
 		<input type="button" value="<?php 
@@ -433,4 +307,3 @@ echo $AppUI->_('submit'); ?>" class="button" onClick="javascript:submitIt()" />
 	</td>
 </tr>
 </table>
-</form>
