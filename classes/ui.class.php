@@ -378,6 +378,9 @@ class CAppUI {
  * Load the known language codes for loaded locales
  *
  */
+	function loadModuleLanguage($m){
+		@include(DP_BASE_DIR . '/locales/core2.php' );
+	}
 	function loadLanguages() {
 		if (isset($_SESSION['LANGUAGES'])) {
 			$LANGUAGES =& $_SESSION['LANGUAGES'];
