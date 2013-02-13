@@ -8,6 +8,7 @@ global $projTasksWithEndDates, $tab, $loadFromTab;
 
 // Need to get all of the resources that this user is allowed to view
 require_once $AppUI->getModuleClass('resources');
+$AppUI->loadModuleLanguage('resources');
 $resource = new CResource;
 
 $resource_types =& $resource->typeSelect();
@@ -21,7 +22,7 @@ $resource_max = array();
 
 while ($row = db_fetch_assoc($res)) {
 	$type = $row['resource_type'];
-	$all_resources[$row['resource_id']] = $resource_types[$row['resource_type']] . ': ' . $row['resource_name'];
+	$all_resources[$row['resource_id']] = $AppUI->_($resource_types[$row['resource_type']]) . ': ' . $row['resource_name'];
 	$resource_max[$row['resource_id']] = $row['resource_max_allocation'];
 }
 $q->clear();
