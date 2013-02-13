@@ -134,7 +134,7 @@ if ($other_users) {
 		foreach ($rows as $row) {
 			$html .= ('<option value="' . $row['user_id'] . '"' 
 					  . (($user_id == $row['user_id']) ? ' selected="selected"' : '')
-					  . '>'.htmlspecialchars($row['user_username']) . '</option>');
+					  . '>'.htmlspecialchars($row["contact_last_name"].' '.$row['contact_first_name']) . '</option>');
 		}
 	}
 	$html .= '</select>';
