@@ -82,6 +82,12 @@ if ($del) {
 		}
 	}
 }
+// If there is a set of post_save functions, then we process them
+if (isset($post_save)) {
+	foreach ($post_save as $post_save_function) {
+		$post_save_function();
+	}
+}
 if ($do_redirect)
   $AppUI->redirect();
 ?>
