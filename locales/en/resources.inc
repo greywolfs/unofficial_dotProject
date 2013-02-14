@@ -3,6 +3,7 @@
 ##
 "Add Resource",
 "All Resources",
+"Assigned to event",
 "back",
 "Details",
 "doDelete",
@@ -13,6 +14,7 @@
 "Maximum Allocation Percentage",
 "new resource",
 "Notes",
+"Other resources",
 "Resource ID",
 "resource list","Description",
 "Resource Name",

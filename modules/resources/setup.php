@@ -5,7 +5,7 @@ if (!defined('DP_BASE_DIR')) {
 
 $config = array(
 	'mod_name' => 'Resources',
-	'mod_version' => '1.0.1',
+	'mod_version' => '1.0.2',
 	'mod_directory' => 'resources',
 	'mod_setup_class' => 'SResource',
 	'mod_type' => 'user',
@@ -64,11 +64,23 @@ class SResource {
 		$q->createDefinition($sql);
 		$ok = $ok && $q->exec();
 		$q->clear();
+
+		$sql = "(
+			id integer not null auto_increment,
+			event_id integer not null,
+			resource_id integer not null,
+			primary key (id)
+		)";
+		$q->createTable('event_resources');
+		$q->createDefinition($sql);
+		$ok = $ok && $q->exec();
+		$q->clear();
+
 		$q->addTable('resource_types');
 		$q->addInsert('resource_type_name', 'Equipment');
-		$q->exec();
+		$ok = $ok && $q->exec();
 		$q->addInsert('resource_type_name', 'Tool');
-		$q->exec();
+		$ok = $ok && $q->exec();
 		$q->addInsert('resource_type_name', 'Venue');
 		$ok = $ok && $q->exec();
 		
@@ -88,13 +100,17 @@ class SResource {
 		$q->clear();
 		$q->dropTable('resource_types');
 		$q->exec();
+		$q->clear();
+		$q->dropTable('event_resources');
+		$q->exec();
+		$q->clear();
 
 		return null;
 	}
 
 	function upgrade($old_version) {
 	  switch ($old_version) {
-		case "1.0":
+		case "1.0":{
 		  $q = new DBQuery;
 		  $q->addTable('resources');
 		  $q->addField('resource_key', "varchar(64) not null default ''");
@@ -102,9 +118,29 @@ class SResource {
 		  if (db_error()) {
 			return false;
 		  }
+			$q->clear();
+		}
 		  // FALLTHROUGH
-		case "1.0.1":
+		case "1.0.1":{
+			$q = new DBQuery;
+			$sql = "(
+				id integer not null auto_increment,
+				event_id integer not null,
+				resource_id integer not null,
+				primary key (id)
+			)";
+			$q->createTable('event_resources');
+			$q->createDefinition($sql);
+			$q->exec();
+			if (db_error()) {
+				return false;
+			}
+			$q->clear();
+		}
+			// FALLTHROUGH
+		case "1.0.2":{
 		  break;
+		}
 	  }
 	  return true;
     }

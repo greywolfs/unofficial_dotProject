@@ -3,6 +3,7 @@
 ##
 "Add Resource"=>"Добавить ресурс",
 "All Resources"=>"Все ресурсы",
+"Assigned to event"=>"Прикрепленные к событию",
 "Description"=>"Описание",
 "Details"=>"Детали",
 "Equipment"=>"Оборудование",
@@ -11,6 +12,7 @@
 "Max Allocation %"=>"Максимально выд. %",
 "Maximum Allocation Percentage"=>"Максимально возм выд.",
 "Notes"=>"Комментарии",
+"Other resources"=>"Другие ресурсы",
 "Resource ID"=>"ID ресурса",
 "Resource Name"=>"Имя ресурса",
 "Tool"=>"Инструмент",

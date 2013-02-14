@@ -8,7 +8,7 @@ global $projTasksWithEndDates, $tab, $loadFromTab;
 
 // Need to get all of the resources that this user is allowed to view
 require_once $AppUI->getModuleClass('resources');
-$AppUI->loadModuleLanguage('resources');
+//$AppUI->loadModuleLanguage('resources');
 $resource = new CResource;
 
 $resource_types =& $resource->typeSelect();
