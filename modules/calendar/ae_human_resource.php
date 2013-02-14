@@ -56,7 +56,7 @@
 				<table cellspacing="0" cellpadding="2" border="0">
 					<tr>
 						<td><?php echo $AppUI->_('Human Resources');?>:</td>
-						<td><?php echo $AppUI->_('Assigned to Task');?>:</td>
+						<td><?php echo $AppUI->_('Invited to Event');?>:</td>
 					</tr>
 					<tr>
 						<td>
@@ -83,7 +83,7 @@
 					<?php echo $AppUI->_('Additional Email Comments');?>:
 					<br />
 					<textarea name="email_comment" class="textarea" cols="60" rows="10" wrap="virtual"></textarea><br />
-					<input type="checkbox" name="task_notify" id="task_notify" value="1"<?php if ($obj->task_notify != 0) { echo ' checked="checked"'; } ?> /> <label for="task_notify"><?php echo $AppUI->_('notifyChange'); ?></label>
+					<input type="checkbox" name="event_notify" id="event_notify" value="1"<?php if ($obj->event_notify != 0) { echo ' checked="checked"'; } ?> /> <label for="event_notify"><?php echo $AppUI->_('Mail Attendees?'); ?></label>
 				</td></tr></table><br />
 
 			</td>

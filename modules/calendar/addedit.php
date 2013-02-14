@@ -295,9 +295,9 @@ echo ((isset($obj->event_times_recuring)) ? $obj->event_times_recuring : '1');
 	$tabBox->loadExtras('calendar','addedit');
 	$tabBox->show('', true);
 ?>
-<table>
+<table width=100%>
 <tr>
-	<td colspan="2">
+	<td align='left' >
 		<input type="button" value="<?php 
 echo $AppUI->_('back'); ?>" class="button" onclick="javascript:history.back();" />
 	</td>
