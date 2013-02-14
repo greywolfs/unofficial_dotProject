@@ -1142,6 +1142,7 @@ class CTabBox_core {
 		foreach ($tab_array as $tab_elem) {
 			if (isset($tab_elem['module']) && $AppUI->isActiveModule($tab_elem['module'])) {
 				$tab_count++;
+				$AppUI->loadModuleLanguage($tab_elem['module']);
 				$this->add($tab_elem['file'], $tab_elem['name']);
 			}
 		}
